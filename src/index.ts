@@ -18,7 +18,7 @@ bot.on('inline_query', async (ctx) => {
 
   const {from} = ctx.inlineQuery
 
-  const result = [getRandomForesight(from.username ? '@' + from.username : from.first_name)]
+  const result = [await getRandomForesight(from.username ? '@' + from.username : from.first_name)]
 
   await ctx.answerInlineQuery(result, {
     cache_time: 0
