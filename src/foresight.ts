@@ -1,8 +1,12 @@
 import type { InlineQueryResult } from "telegraf/types"
 import { foresightResults } from "./foresight_results.js"
+import crypto from 'crypto';
+
+
 
 export const getRandomForesight = (name: string):InlineQueryResult => {
-    const randomIndex = Math.floor(Math.random() * foresightResults.length)
+    const randomIndex = crypto.randomInt(0, foresightResults.length - 1);
+
     return {
          type: 'article',
     id: '1',
