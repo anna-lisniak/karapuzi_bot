@@ -22,6 +22,10 @@ const formatForesights = (foresights: string[]) => {
     });
 }
 
+setInterval(async () => {
+    await getForesights();
+}, 1000 * 60 * 5);
+
 const getForesights = async  () => {
     if(foresightsCache.length > 0 && Date.now() - cacheAge < 1000 * 60 * 60 * 1) {
         return foresightsCache;
