@@ -43,8 +43,7 @@ const getForesights = async  () => {
 
     const rows = json.table.rows
 
-    const [header, ...foresights] = rows.map((row: any) => row.c[1].v).filter(Boolean)
-console.log('foresights length: ', foresights.length)
+    const [header, ...foresights] = rows.map((row: any) => row.c[1]?.v).filter(Boolean)
     const formattedForesights = formatForesights(foresights);
 
     foresightsCache = formattedForesights;
