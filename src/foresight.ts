@@ -1,5 +1,5 @@
 import type { InlineQueryResult } from "telegraf/types"
-import crypto from 'crypto';
+import { getRandom } from "./random.js";
 
 let foresightsCache: string[] = [];
 let cacheAge = 0;
@@ -55,7 +55,7 @@ const getForesights = async  () => {
 
 export const getRandomForesight = async (name: string):Promise<InlineQueryResult> => {
     const foresights = await getForesights();
-    const randomIndex = crypto.randomInt(0, foresights.length - 1);
+    const randomIndex = getRandom(0, foresights.length - 1);
     const foresight = foresights[randomIndex];
 
     return {

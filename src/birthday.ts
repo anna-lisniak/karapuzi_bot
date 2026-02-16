@@ -1,3 +1,6 @@
+import type { Context, Telegraf } from "telegraf";
+import type { Update } from "telegraf/types";
+
 interface User {
     username: string;
     birthday: `${number}.${number}`;
@@ -71,7 +74,7 @@ const getTodayBirthdays = (users: Pick<User, 'birthday'>[]) => {
     });
 }
 
-export const processBirthday = async () => {
+export const processBirthday = async (bot:Telegraf<Context<Update>> ) => {
     const users = await getUsers();
     const wishes = await getWishes();
     console.log({wishes})
@@ -81,7 +84,28 @@ export const processBirthday = async () => {
 
     console.log('momBirthdays', momBirthdays)
     console.log('childBirthdays', childBirthdays)
+
+    await bot.telegram.sendMessage(
+        -1002122724301,
+        'test'
+    )
+
+    if(momBirthdays.length === 1) { 
+        'Сьогодні ми маємо іменинницю'
+    }
+
+    if(momBirthdays.length > 1) {
+        'Сьогодні наші іменинниці: '
+    }
     
+    if(childBirthdays.length === 1) {
+        'Сьогодні святкує день народження наш маленький'
+    }
+
+    if(childBirthdays.length > 1) {
+        'Сьогодні святкують день народження наші маленькі'
+    }
     
+
 
 }

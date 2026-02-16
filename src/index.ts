@@ -51,7 +51,7 @@ const PORT = 3000;
 const server = http.createServer(async (req, res) => {
     if(req.url?.includes('/birthday')) {
         res.statusCode = 200;
-        await processBirthday();
+        await processBirthday(bot);
     }
 
   res.statusCode = 200;
