@@ -20,6 +20,8 @@ bot.on('inline_query', async (ctx) => {
   const {from, chat_type} = ctx.inlineQuery
   console.log({from, chat_type});
 
+  console.log('ctx chat', ctx.chat);
+
   const result = [await getRandomForesight(from.username ? '@' + from.username : from.first_name)]
 
   await ctx.answerInlineQuery(result, {
