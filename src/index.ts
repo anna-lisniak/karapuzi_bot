@@ -2,11 +2,13 @@ import 'dotenv/config';
 import { Telegraf } from 'telegraf';
 import { getRandomForesight } from './foresight.js';
 import http from 'http';
+import { processBirthday } from './birthday.js';
 
 const token = process.env.BOT_TOKEN;
 if (!token) {
   throw new Error('BOT_TOKEN must be provided!');
 }
+
 const bot = new Telegraf(token);
 
 
@@ -15,9 +17,8 @@ bot.start(ctx => ctx.reply('Я тут нічого не вмію....'));
 bot.action('start', (ctx: any) => console.log('Start ', ctx.message));
 
 bot.on('inline_query', async (ctx) => {
-//   const query = ctx.inlineQuery.query
-
-  const {from} = ctx.inlineQuery
+  const {from, chat_type} = ctx.inlineQuery
+  console.log({from, chat_type});
 
   const result = [await getRandomForesight(from.username ? '@' + from.username : from.first_name)]
 
@@ -45,12 +46,14 @@ bot.on('message', async (ctx) => {
 
 bot.launch(() => console.log('Bot is running'));
 
-
-
-
 const PORT = 3000;
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
+    if(req.url?.includes('/birthday')) {
+        res.statusCode = 200;
+        await processBirthday();
+    }
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
 
