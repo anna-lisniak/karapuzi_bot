@@ -17,10 +17,7 @@ bot.start(ctx => ctx.reply('Я тут нічого не вмію....'));
 bot.action('start', (ctx: any) => console.log('Start ', ctx.message));
 
 bot.on('inline_query', async (ctx) => {
-  const {from, chat_type} = ctx.inlineQuery
-  console.log({from, chat_type});
-
-  console.log('ctx chat', ctx.chat);
+  const {from} = ctx.inlineQuery
 
   const result = [await getRandomForesight(from.username ? '@' + from.username : from.first_name)]
 
@@ -31,6 +28,7 @@ bot.on('inline_query', async (ctx) => {
 
 bot.on('message', async (ctx) => {
   console.log('MESSAGE RECEIVED')
+  console.log('ctx chat', ctx.chat);
 
   try {
     const member = await ctx.telegram.getChatMember(
