@@ -18,6 +18,12 @@ bot.start(async ctx => {
   ctx.reply(foresight)
 });
 
+bot.command('magic', async ctx => {
+  const from = ctx.from;
+  const foresight = await getRandomForesight(from.username ? '@' + from.username : from.first_name)
+  ctx.reply(foresight)
+});
+
 // bot.action('start', (ctx: any) => {
 //   const from = ctx.from;
 //   console.log('Start ', ctx.message)
