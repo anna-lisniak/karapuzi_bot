@@ -53,19 +53,13 @@ const getForesights = async  () => {
 }
 
 
-export const getRandomForesight = async (name: string):Promise<InlineQueryResult> => {
+export const getRandomForesight = async (name: string):Promise<string> => {
     const foresights = await getForesights();
     const randomIndex = getRandom(0, foresights.length - 1);
     const foresight = foresights[randomIndex];
 
-    return {
-        type: 'article',
-        id: '1',
-        title: 'Начаклую....🔮',
-        description: 'Дізнайся своє передбачення!',
-        input_message_content: {
-            message_text: `🔮 Передбачення для ${name}:\n\n${foresight}`
-        }
-    }
+    return `🔮 Передбачення для ${name}:\n\n${foresight}`
+
+ 
     
 }

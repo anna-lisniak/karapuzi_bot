@@ -12,16 +12,33 @@ if (!token) {
 const bot = new Telegraf(token);
 
 
-bot.start(ctx => ctx.reply('Я тут нічого не вмію....'));
+bot.start(async ctx => {
+  const from = ctx.from;
+  const foresight = await getRandomForesight(from.username ? '@' + from.username : from.first_name)
+  ctx.reply(foresight)
+});
 
-bot.action('start', (ctx: any) => console.log('Start ', ctx.message));
+// bot.action('start', (ctx: any) => {
+//   const from = ctx.from;
+//   console.log('Start ', ctx.message)
+// });
 
 bot.on('inline_query', async (ctx) => {
   const {from} = ctx.inlineQuery
 
-  const result = [await getRandomForesight(from.username ? '@' + from.username : from.first_name)]
+  const foresight = await getRandomForesight(from.username ? '@' + from.username : from.first_name)
 
-  await ctx.answerInlineQuery(result, {
+  await ctx.answerInlineQuery([
+       {
+        type: 'article',
+        id: '1',
+        title: 'Начаклую....🔮',
+        description: 'Дізнайся своє передбачення!',
+        input_message_content: {
+            message_text: `🔮 Передбачення для ${name}:\n\n${foresight}`
+        }
+    }
+  ], {
     cache_time: 0
   })
 })
