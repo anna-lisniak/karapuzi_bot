@@ -41,7 +41,7 @@ bot.on('inline_query', async (ctx) => {
         title: 'Начаклую....🔮',
         description: 'Дізнайся своє передбачення!',
         input_message_content: {
-            message_text: `🔮 Передбачення для ${name}:\n\n${foresight}`
+            message_text: foresight
         }
     }
   ], {
